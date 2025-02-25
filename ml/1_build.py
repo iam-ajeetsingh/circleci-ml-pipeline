@@ -9,6 +9,9 @@
 # Dependencies:
 # You must have set up your environment by running tools/install.sh to install the required Python dependencies
 
+# installing the requirements for the project 
+!pip install -r requirements.txt
+
 # Import dependencies
 import sys
 from tensorflow import keras
