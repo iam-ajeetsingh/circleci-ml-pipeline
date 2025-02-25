@@ -27,7 +27,7 @@ jobs:
 
       - name: Create .env file containing secrets
         run: |
-          cat <<- EOF .env
+          cat <<- EOFenv
           DEPLOY_SERVER_HOSTNAME=${{ secrets.DEPLOY_SERVER_HOSTNAME }}
           DEPLOY_SERVER_USERNAME=${{ secrets.DEPLOY_SERVER_USERNAME }}
           DEPLOY_SERVER_PASSWORD=${{ secrets.DEPLOY_SERVER_PASSWORD }}
@@ -46,7 +46,7 @@ jobs:
           python3 ./ml/1_build.py
 
       - name: Save artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: workspace
           path: |
@@ -60,7 +60,7 @@ jobs:
     needs: install-build
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: workspace
 
@@ -70,7 +70,7 @@ jobs:
           python3 ./ml/2_train.py
 
       - name: Save artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: workspace
           path: ml
@@ -80,7 +80,7 @@ jobs:
     needs: train
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: workspace
 
@@ -93,7 +93,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: workspace
 
@@ -107,7 +107,7 @@ jobs:
         run: echo "I am the result of the above failed job"
 
       - name: Save artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: workspace
           path: ml
@@ -117,7 +117,7 @@ jobs:
     needs: [test, retrain]
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: workspace
 
@@ -131,7 +131,7 @@ jobs:
     needs: package
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: workspace
 
@@ -145,7 +145,7 @@ jobs:
     needs: deploy
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: workspace
 
